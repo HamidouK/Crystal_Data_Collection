@@ -1,0 +1,7 @@
+ Crystal Reports UNOS for consented Donors
+
+ 
+ SELECT `donor`.`code`, `donor`.`refno`, `tissue`.`vendno`, `donor`.`resultrcvd`, `tissue`.`tissue_id`, `donor`.`consinfo`, `donor`.`medsocinfo`, `donor`.`cont_date`, `donor`.`vendno`, `tissue`.`cfeecode`
+ FROM   (`tissue` `tissue` INNER JOIN `donor` `donor` ON `tissue`.`dnsystemid`=`donor`.`dnsystemid`) INNER JOIN `project` `project` ON `tissue`.`proj_code`=`project`.`proj_code`
+ WHERE  (`donor`.`resultrcvd`='P' OR `donor`.`medsocinfo`='' OR `donor`.`consinfo`='') AND `donor`.`code` LIKE 'ND%' AND  NOT (`donor`.`refno` LIKE 'PD%' OR `donor`.`refno` LIKE 'RD%') AND `donor`.`cont_date`>={d '2014-03-01'} AND  NOT (`donor`.`vendno` LIKE 'L%' OR `donor`.`vendno` LIKE 'S%')
+ ORDER BY `tissue`.`vendno`, `donor`.`refno`
